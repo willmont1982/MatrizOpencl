@@ -12,13 +12,6 @@
 //
 //  USAGE:   The matrices are constant matrices, square and the order is
 //           set as a constant, ORDER (see mult.h).
-//
-//  HISTORY: Written by Tim Mattson, August 2010 
-//           Modified by Simon McIntosh-Smith, September 2011
-//           Modified by Tom Deakin and Simon McIntosh-Smith, October 2012
-//           Updated to C++ Wrapper v1.2.6 by Tom Deakin, August 2013
-//           Modified to assume square matricies by Tom Deakin, October 2014
-//
 //------------------------------------------------------------------------------
 
 #include "matmul.hpp"
