@@ -1,12 +1,7 @@
-#pragma once
 //------------------------------------------------------------------------------
 //
 //  Include fle for the Matrix Multiply test harness
 //
-//  HISTORY: Written by Tim Mattson, August 2010
-//           Modified by Simon McIntosh-Smith, September 2011
-//           Modified by Tom Deakin and Simon McIntosh-Smith, October 2012
-//           Updated to C++ Wrapper v1.2.6 by Tom Deakin, August 2013
 //
 //------------------------------------------------------------------------------
 
