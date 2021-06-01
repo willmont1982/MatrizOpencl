@@ -1,17 +1,14 @@
 //------------------------------------------------------------------------------
 //
-//  PROGRAM: Matrix Multipliplication driver
+//  PROGRAMA: Driver de multiplicação de matriz
 //
-//  PURPOSE: This is a driver program to test various ways of computing
-//           the product:
+//  PROPOSITO: Varias formas de calcular um produto da matriz:
 //
 //                C  = A * B
 //
-//           A and B are set to constant matrices so we
-//           can make a quick test of the multiplication.
+//           A e B são definidas para matrizes constantes para que possamos fazer um teste rápido da multiplicação.
 //
-//  USAGE:   The matrices are constant matrices, square and the order is
-//           set as a constant, ORDER (see mult.h).
+//  USO: São matrizes constantes, quadradas e a ordem é definida como uma constante, ORDER (see mult.h).
 //------------------------------------------------------------------------------
 
 #include "matmul.hpp"
@@ -42,7 +39,7 @@ int main(int argc, char* argv[])
     cl::Buffer d_a, d_b, d_c;   // Matrices in device memory
 
 //--------------------------------------------------------------------------------
-// Create a context and queue
+// Criando um contexto e uma fila
 //--------------------------------------------------------------------------------
 
     try
@@ -73,10 +70,10 @@ int main(int argc, char* argv[])
         cl::CommandQueue queue(context, device);
 
         //--------------------------------------------------------------------------------
-        // Setup the buffers, initialize matrices, and write them into global memory
+        // Configurar os buffers, inicializar as matrizes e escreve-las na memória global
         //--------------------------------------------------------------------------------
 
-                //  Reset A, B and C matrices (just to play it safe)
+                //  Reseta matrizes A, B e C matrices (apenas por segurança)
         initmat(N, h_A, h_B, h_C);
 
         d_a = cl::Buffer(context, h_A.begin(), h_A.end(), true);
@@ -87,25 +84,25 @@ int main(int argc, char* argv[])
         // OpenCL matrix multiplication ... Naive
         //--------------------------------------------------------------------------------
 
-                // Create the compute program from the source buffer
+                // Cria o programa a partir do buffer de origem
         cl::Program program(context, util::loadProgram("kernels/C_elem.cl"), true);
 
-        // Create the compute kernel from the program
+        // Crie o kernel do programa
         cl::make_kernel<int, cl::Buffer, cl::Buffer, cl::Buffer> naive_mmul(program, "mmul");
 
         printf("\n===== OpenCL, matrix mult, C(i,j) per work item, order %d ======\n", N);
 
-        // Do the multiplication COUNT times
+        // Contador de multiplicação
         for (int i = 0; i < COUNT; i++)
         {
             zero_mat(N, h_C);
 
             start_time = static_cast<double>(timer.getTimeMilliseconds()) / 1000.0;
 
-            // Execute the kernel over the entire range of C matrix elements ... computing
-            // a dot product for each element of the product matrix.  The local work
-            // group size is set to NULL ... so I'm telling the OpenCL runtime to
-            // figure out a local work group size for me.
+           //Execute o kernel sobre toda a gama de elementos de matriz C ... 
+           //Calculando um produto de ponto para cada elemento da matriz do produto.  
+           //O tamanho local está definido como NULL ... 
+           //Direciono ao opencl em tempo de execução para calcular o tamanho da matriz.
             cl::NDRange global(N, N);
             naive_mmul(cl::EnqueueArgs(queue, global),
                 N, d_a, d_b, d_c);
@@ -118,7 +115,7 @@ int main(int argc, char* argv[])
 
             results(N, h_C, run_time);
 
-        } // end for loop
+        } // fim do loop
 
     }
     catch (cl::Error err)
